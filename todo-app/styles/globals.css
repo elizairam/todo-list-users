@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:wght@600&display=swap');
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #fefefe;
+  color: #000;
+}
+
+
+* {
+  box-sizing: border-box;
+  font-family: 'Spline Sans Mono', monospace;
+}
