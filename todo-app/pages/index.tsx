@@ -10,17 +10,6 @@ export async function getStaticProps() {
     props: { users },
   };
 }
- 
-// export async function getStaticPaths() {
-//   return {
-//     paths: [
-//       { params: { id: 1 } }, 
-//       { params: { id: 2 } }, 
-//        ...
-//     ],
-//     fallback: true, false or "blocking" 
-//   };
-// }
 
 export default function Home({ users }) {
   return (
