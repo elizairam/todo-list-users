@@ -2,6 +2,10 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import styles from "../../styles/UsersTasks.module.css";
+import Button from "../../components/button";
+import Select from "../../components/select";
+import Input from "../../components/input";
+import Link from "../../node_modules/next/link";
 
 export async function getStaticProps() {
   const data = await fetch(`https://jsonplaceholder.typicode.com/users`);
@@ -140,45 +144,23 @@ export default function UsersTasks() {
         <h2 className={styles.description}>
           _ tarefas associadas ao usuário {userId}
         </h2>
-
-        <button
-          type="button"
-          className="btn btn-info"
-          onClick={selectAddNewTask}
-        >
-          Adicionar tarefa
-        </button>
+        <Button text="Adicionar Tarefa" type="info" click={selectAddNewTask} />
         {isSelectedNewTask ? (
           <>
             <div className="input-group mb-3" style={{ marginTop: 20 }}>
-              <input
-                type="text"
-                className="form-control"
-                aria-label="Text input with dropdown button"
-                placeholder="Descreva aqui a tarefa..."
+              <Input
                 name="title"
                 value={formData.title}
-                onChange={changeHandler}
+                change={changeHandler}
               />
-              <select
-                name="completed"
-                id="completed"
-                onChange={changeHandler}
-                defaultValue={formData.completed}
-              >
-                <option value="false" defaultChecked>
-                  Pendente
-                </option>
-                <option value="true">Concluída</option>
-              </select>
+              <Select
+                change={changeHandler}
+                defaultValue={"Pendente"}
+                firstOption={"Pendente"}
+                secondOption={"Concluída"}
+              />
             </div>
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={submitNewTask}
-            >
-              Salvar
-            </button>
+            <Button text="Salvar" type="primary" click={submitNewTask} />
           </>
         ) : null}
         <table className="table">
@@ -196,44 +178,29 @@ export default function UsersTasks() {
                   {!isEdit ? (
                     <>
                       {todo.completed ? (
-                        <button type="button" className="btn btn-success">
-                          Concluída
-                        </button>
+                        <Button text="Concluída" type="success" />
                       ) : (
-                        <button type="button" className="btn btn-secondary">
-                          Pendente
-                        </button>
+                        <Button text="Pendente" type="secondary" />
                       )}
                     </>
                   ) : (
-                    <select
-                      name="completed"
-                      id="completed"
-                      onChange={changeHandlerToUpdate}
+                    <Select
+                      change={changeHandlerToUpdate}
                       defaultValue={todo.completed}
-                    >
-                      <option value="false">Pendente</option>
-                      <option value="true">Concluída</option>
-                    </select>
+                      firstOption={"Pendente"}
+                      secondOption={"Concluída"}
+                    />
                   )}
                 </td>
                 <td>
                   {!isEdit ? (
-                    <button
-                      type="button"
-                      className="btn btn-warning"
-                      onClick={editMode}
-                    >
-                      Editar
-                    </button>
+                    <Button click={editMode} text="Editar" type="warning" />
                   ) : (
-                    <button
-                      type="button"
-                      className="btn btn-warning"
-                      onClick={() => editTask(todo.id, todo.title, isCompleted)}
-                    >
-                      Salvar
-                    </button>
+                    <Button
+                      click={() => editTask(todo.id, todo.title, isCompleted)}
+                      text="Salvar"
+                      type="warning"
+                    />
                   )}
                 </td>
               </tr>
@@ -241,6 +208,12 @@ export default function UsersTasks() {
           </tbody>
         </table>
       </main>
+
+      <Link href={`/`}>
+        <button type="button" className="btn btn-primary" style={{ margin: 20 }}>
+          Voltar
+        </button>
+      </Link>
     </div>
   );
 }
