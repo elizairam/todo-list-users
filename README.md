@@ -1,3 +1,31 @@
+# Todo list: lista de tarefas por usuários 📝
+![quadro de cartões](./public/cardboard.png)
+
+
+Um projeto de lista de tarefas (todo list) que consome a API [JSONplaceholder](https://jsonplaceholder.typicode.com/) , uma mock API.
+
+É possível listar todos os usuários e ver suas tarefas associadas, atualizar o status das tarefas e criar novas. 
+
+## Configuração local do repositório
+#####  Após clonar o projeto, ir para a pasta "todo-list-users" e rodar o comando que instala os pacotes:
+```yarn install```
+##### Depois rodar o comando:
+```yarn run dev```
+#####  E tudo pronto na```http://localhost:3000``` ✨
+
+## Tecnologias aplicadas
+- TypeScript
+- Bootstrap
+- React
+- NextJS
+- Vercel
+
+## Créditos 
+- [Ilustração inicial](https://icons8.com/illustrations/author/RogqKjMRAQ79)
+
+- [Ilustração tasks](https://icons8.com/illustrations/author/zD2oqC8lLBBA) 
+
+----------
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
