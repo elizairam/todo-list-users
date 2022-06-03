@@ -23,10 +23,10 @@ export async function getStaticPaths() {
       { params: { userId: "7" } },
       { params: { userId: "8" } },
       { params: { userId: "9" } },
-      { params: { userId: "10"} }, 
+      { params: { userId: "10" } },
       // parametros rotas dinamicas para todos os 10 usuarios da API
     ],
-    fallback: true 
+    fallback: true,
   };
 }
 
@@ -96,11 +96,17 @@ export default function UsersTasks() {
       .catch((error) => console.log(error));
   };
 
-  const editTask = async (id: number | string, completed: string | boolean) => {
+  const editTask = async (
+    id: number | string,
+    title: string,
+    completed: string | boolean
+  ) => {
     editMode();
     await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
       method: "PATCH",
       body: JSON.stringify({
+        id: id,
+        title: title,
         completed: completed === "false" ? false : true,
       }),
       headers: {
@@ -108,8 +114,18 @@ export default function UsersTasks() {
       },
     })
       .then((response) => response.json())
-      .then((data) => setUserTodos([...userTodos, data]));
+      .then((data) => {
+        const updateValues = userTodos.map((todo) => {
+          if (todo.id === id) {
+            todo.completed = completed === "false" ? false : true;
+          }
 
+          return todo;
+        });
+
+        setUserTodos((userTodos) => updateValues);
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -214,7 +230,7 @@ export default function UsersTasks() {
                     <button
                       type="button"
                       className="btn btn-warning"
-                      onClick={() => editTask(todo.id, isCompleted)}
+                      onClick={() => editTask(todo.id, todo.title, isCompleted)}
                     >
                       Salvar
                     </button>
