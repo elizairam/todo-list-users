@@ -118,7 +118,7 @@ export default function UsersTasks() {
       },
     })
       .then((response) => response.json())
-      .then((data) => {
+      .then(() => {
         const updateValues = userTodos.map((todo) => {
           if (todo.id === id) {
             todo.completed = completed === "false" ? false : true;
@@ -127,7 +127,7 @@ export default function UsersTasks() {
           return todo;
         });
 
-        setUserTodos((userTodos) => updateValues);
+        setUserTodos(() => updateValues);
       })
       .catch((error) => console.log(error));
   };
@@ -145,9 +145,10 @@ export default function UsersTasks() {
           _ tarefas associadas ao usuário {userId}
         </h2>
         <Button text="Adicionar Tarefa" type="info" click={selectAddNewTask} />
+
         {isSelectedNewTask ? (
           <>
-            <div className="input-group mb-3" style={{ marginTop: 20 }}>
+            <div className="input-group mb-3" style={{ margin: 20 }}>
               <Input
                 name="title"
                 value={formData.title}
@@ -162,7 +163,19 @@ export default function UsersTasks() {
             </div>
             <Button text="Salvar" type="primary" click={submitNewTask} />
           </>
-        ) : null}
+        ) : (
+          <div style={{ margin: 20 }}>
+            {!isEdit ? (
+              <Button click={editMode} text="Editar" type="warning" />
+            ) : (
+              <Button
+                click={editMode}
+                text="Cancelar edição"
+                type="secondary"
+              />
+            )}
+          </div>
+        )}
         <table className="table">
           <thead>
             <tr>
@@ -193,9 +206,7 @@ export default function UsersTasks() {
                   )}
                 </td>
                 <td>
-                  {!isEdit ? (
-                    <Button click={editMode} text="Editar" type="warning" />
-                  ) : (
+                  {!isEdit ? null : (
                     <Button
                       click={() => editTask(todo.id, todo.title, isCompleted)}
                       text="Salvar"
@@ -208,9 +219,12 @@ export default function UsersTasks() {
           </tbody>
         </table>
       </main>
-
       <Link href={`/`}>
-        <button type="button" className="btn btn-primary" style={{ margin: 20 }}>
+        <button
+          type="button"
+          className="btn btn-primary"
+          style={{ margin: 20 }}
+        >
           Voltar
         </button>
       </Link>

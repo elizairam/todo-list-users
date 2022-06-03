@@ -4,6 +4,7 @@ interface IButton {
   click?: MouseEventHandler<HTMLButtonElement>;
   text: string;
   type: string;
+  style?: any;
 }
 
 export default function Button(props: IButton) {
